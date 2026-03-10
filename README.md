@@ -56,19 +56,43 @@ Recommended fields:
 npm start
 ```
 
-## 5. Deploy to Firebase Hosting + Firestore rules/indexes
+## 5. Deploy with GitHub Actions (recommended)
 
-```bash
-npx firebase-tools login
-npx firebase-tools use --add
-npm run firebase:deploy
-```
+This repo includes a workflow at `.github/workflows/firebase-deploy.yml`.
+It deploys Hosting + Firestore rules/indexes automatically on every push to `master` or `main`.
+
+### Required GitHub repository secrets
+
+1. `FIREBASE_PROJECT_ID`
+2. `FIREBASE_SERVICE_ACCOUNT` (full JSON key content)
+3. `REACT_APP_FIREBASE_API_KEY`
+4. `REACT_APP_FIREBASE_AUTH_DOMAIN`
+5. `REACT_APP_FIREBASE_PROJECT_ID`
+6. `REACT_APP_FIREBASE_STORAGE_BUCKET`
+7. `REACT_APP_FIREBASE_MESSAGING_SENDER_ID`
+8. `REACT_APP_FIREBASE_APP_ID`
+
+To get `FIREBASE_SERVICE_ACCOUNT`:
+
+1. Open Firebase Console > Project settings > Service accounts.
+2. Click **Generate new private key**.
+3. Copy the whole JSON file content into the GitHub secret.
+
+After secrets are added, push to `master`/`main` (or run the workflow manually from the Actions tab).
 
 This deploys:
 
 - Hosting config from `firebase.json`
 - Firestore rules from `firestore.rules`
 - Firestore indexes from `firestore.indexes.json`
+
+## 6. Optional local deploy
+
+```bash
+npx firebase-tools login
+npx firebase-tools use --add
+npm run firebase:deploy
+```
 
 ## Security note
 
