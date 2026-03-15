@@ -21,7 +21,7 @@ export default function HeroSection({ profile, techStack }) {
     <section id="intro" className="pt-32 pb-20 md:pt-48 md:pb-24 px-6">
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
         <div className="animate-in slide-in-from-left duration-700">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-500 text-xs font-bold uppercase tracking-widest mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-orange-500/15 via-orange-400/20 to-orange-500/10 border border-orange-400/30 text-orange-500 text-xs font-bold uppercase tracking-widest mb-6 shadow-[0_0_16px_rgba(249,115,22,0.18)]">
             {profileData.openToWorkLabel}
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-slate-50 leading-[1.1] mb-6 tracking-tighter">
@@ -42,7 +42,7 @@ export default function HeroSection({ profile, techStack }) {
               href={profileData.resumeUrl}
               target={profileData.resumeUrl.startsWith('http') ? '_blank' : undefined}
               rel={profileData.resumeUrl.startsWith('http') ? 'noreferrer' : undefined}
-              className="px-8 py-4 rounded-xl bg-orange-500 text-white dark:text-slate-950 font-black text-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 active:scale-95"
+              className="hover-resume-shake px-8 py-4 rounded-xl bg-orange-500 text-white dark:text-slate-950 font-black text-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 active:scale-95"
             >
               <FileText className="w-5 h-5" /> {profileData.resumeLabel}
             </a>

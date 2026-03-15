@@ -83,8 +83,15 @@ export default function App() {
         />
 
         <HeroSection profile={content.profile} techStack={content.techStack} />
-        <StatsSection stats={content.stats} />
-        <ExperienceSection experience={content.experience} />
+        <StatsSection
+          stats={content.stats}
+          experience={content.experience}
+          projects={content.projects}
+        />
+        <ExperienceSection
+          experience={content.experience}
+          usingFirestore={usingFirestore}
+        />
         <PortfolioSection
           projects={content.projects}
           projectImages={content.projectImages}
@@ -108,11 +115,11 @@ export default function App() {
 
         <div className="fixed bottom-4 right-4 text-[10px] uppercase tracking-widest font-mono px-3 py-2 rounded-full border bg-white/80 dark:bg-slate-900/80 border-slate-200 dark:border-slate-700 text-slate-500 backdrop-blur-md">
           {loading
-            ? 'Loading content...'
+            ? 'Checking updates...'
             : usingFirestore
-              ? 'Firestore data'
-              : 'Local fallback data'}
-          {error ? ' (last fetch failed)' : ''}
+              ? 'Live content'
+              : 'Local preview'}
+          {error ? ' (sync issue)' : ''}
         </div>
       </div>
     </div>

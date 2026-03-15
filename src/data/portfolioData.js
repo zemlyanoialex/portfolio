@@ -36,22 +36,141 @@ export const STATS = [
 
 export const EXPERIENCE = [
   {
-    company: 'VerifyIt',
-    role: 'Lead Engineer / Founder',
-    period: '2024 - Present',
-    desc: 'Building an automated auditor for corporate knowledge bases using Node.js streams and high-performance crawlers.',
+    company: 'BestWebSoft',
+    companyLink: 'https://bestwebsoft.com/',
+    role: 'WordPress Developer',
+    desc: 'Developed and maintained WordPress plugins and themes for client requirements, optimized plugin functionality for compatibility across WordPress versions, and improved theme usability and accessibility.',
+    timeline: {
+      from: { year: 2011, month: 10 },
+      to: { year: 2012, month: 6 },
+    },
+    meta: {
+      workType: 'On-site',
+      companyLocation: 'Zaporizhzhia, Ukraine',
+    },
+    stack: ['WordPress', 'jQuery', 'MySQL'],
   },
   {
-    company: 'TechScale Systems',
-    role: 'Senior Backend Developer',
-    period: '2021 - 2024',
-    desc: 'Scaled microservices to handle 1M+ requests per second. Implemented Redis caching layers and PostgreSQL optimization.',
+    company: 'GBKSOFT',
+    companyLink: 'https://gbksoft.ua/',
+    role: 'Web Developer',
+    desc: 'Developed and maintained a localized social networking site and a childhood-focused web platform, implemented jQuery-based front-end interactivity, optimized MySQL and MongoDB data flows, and supported existing products with stability and performance improvements.',
+    timeline: {
+      from: { year: 2012, month: 12 },
+      to: { year: 2014, month: 1 },
+    },
+    meta: {
+      workType: 'On-site',
+      companyLocation: 'Zaporizhzhia, Ukraine',
+    },
+    stack: ['PHP', 'CodeIgniter', 'Symfony', 'jQuery', 'MySQL', 'MongoDB'],
   },
   {
-    company: 'Creative Labs',
+    company: 'Flexi IT-company',
+    companyLink: 'https://flexi.ink/',
+    role: 'Technical Lead & Co-Founder',
+    desc: 'Led the company’s technical direction and foundational technology decisions, managed client and candidate interviews, supported teams across the full software development lifecycle, and drove delivery of web applications aligned with business goals.',
+    timeline: {
+      from: { year: 2014, month: 1 },
+      to: { year: 2017, month: 7 },
+    },
+    meta: {
+      workType: 'On-site',
+      companyLocation: 'Zaporizhzhia, Ukraine',
+    },
+    stack: [
+      'PHP',
+      'Symfony',
+      'Laravel',
+      'CodeIgniter',
+      'WordPress',
+      'MySQL',
+      'MongoDB',
+      'AngularJS',
+    ],
+  },
+  {
+    company: 'Toptal',
+    companyLink: 'https://www.toptal.com/',
+    role: 'Senior WordPress Developer',
+    desc: 'Built custom WordPress themes and plugins from scratch for diverse client projects, delivering scalable and maintainable solutions with strong focus on core compatibility, performance, and engineering best practices.',
+    timeline: {
+      from: { year: 2016, month: 5 },
+      to: { year: 2018, month: 9 },
+    },
+    meta: {
+      workType: 'Remote',
+      companyLocation: 'Global',
+      employmentType: 'Freelance',
+    },
+    stack: ['WordPress', 'PHP', 'JavaScript', 'MySQL'],
+  },
+  {
+    company: 'Confidential (NDA)',
+    companyLink: null,
     role: 'Full Stack Developer',
-    period: '2019 - 2021',
-    desc: 'Developed responsive React interfaces and built RESTful APIs for e-commerce platforms.',
+    desc: 'Contributed to delivery of a Progressive Web Application (PWA) using Next.js and Firebase, collaborating closely on front-end implementation to ensure timely project completion.',
+    timeline: {
+      from: { year: 2019, month: 6 },
+      to: { year: 2020, month: 2 },
+    },
+    meta: {
+      workType: 'Remote',
+    },
+    stack: ['Next.js', 'Firebase', 'JavaScript'],
+  },
+  {
+    company: 'WestWayTechnology',
+    companyLink: 'https://westwaydigital.com/',
+    role: 'React / Node.js Developer',
+    desc: 'Developed and supported multiple React + Node.js products, including an office building management platform (GraphQL, NestJS) and an online education platform with video conferencing, progress tracking, exams, scoreboards, and third-party API integrations. Also supported smaller WordPress projects, with focus on scalability and performance.',
+    timeline: {
+      from: { year: 2019, month: 4 },
+      to: null,
+    },
+    meta: {
+      workType: 'Remote',
+      companyLocation: 'New York, USA',
+    },
+    stack: ['Node.js', 'React', 'GraphQL', 'NestJS', 'WordPress', 'Third-party APIs'],
+  },
+  {
+    company: 'Confidential (NDA)',
+    companyLink: null,
+    role: 'Full Stack Developer',
+    desc: 'Built an online marketplace platform with Nuxt 3 (Vue) frontend and Laravel APIs, developed a cryptocurrency payment sub-service for seamless transactions, and delivered scalable backend solutions for high-frequency operations while improving performance and UX.',
+    timeline: {
+      from: { year: 2024, month: 1 },
+      to: { year: 2024, month: 12 },
+    },
+    meta: {
+      workType: 'Remote',
+    },
+    stack: ['Nuxt 3', 'Vue.js', 'Laravel', 'PHP', 'Cryptocurrency Payments'],
+  },
+  {
+    company: 'Supercake',
+    companyLink: 'https://supercake.co/',
+    role: 'Full Stack Developer',
+    desc: 'Building and scaling high-traffic consumer products as a full stack developer, including backend API services and modern Vue/Nuxt frontends with payment and Firebase integrations.',
+    timeline: {
+      from: { year: 2026, month: 1 },
+      to: null,
+    },
+    meta: {
+      workType: 'Remote',
+      companyLocation: 'Germany',
+    },
+    stack: [
+      'Node.js',
+      'TypeScript',
+      'Express',
+      'PostgreSQL',
+      'Redis',
+      'Vue.js',
+      'Nuxt 3',
+      'Firebase',
+    ],
   },
 ];
 
@@ -80,42 +199,651 @@ export const PROJECT_IMAGES = {
 
 export const PORTFOLIO_PROJECTS = [
   {
-    title: 'VerifyIt',
+    title: 'Practice',
+    slug: 'practice',
+    year: 2024,
+    projectTimeline: {
+      startedYear: 2020,
+      majorRebuildYear: 2024,
+    },
     description:
-      'Automatic auditor for corporate knowledge bases using Node.js. Handles millions of files with a custom streaming engine.',
-    tags: ['Node.js', 'PostgreSQL', 'Streams'],
-    link: '#',
-    imageKey: 'verifyit',
-    featured: true,
+      'Built and scaled a NestJS/TypeScript backend monorepo for an education platform, covering classes, assignments, grades, attendance, reporting, authentication, and district-level administration.',
+    tags: [
+      'TypeScript',
+      'Node.js',
+      'NestJS',
+      'GraphQL',
+      'Sequelize',
+      'MySQL',
+      'Redis',
+      'Bull Queue',
+      'CQRS',
+      'Docker',
+    ],
+    links: {
+      live: 'https://nyc.practice.org/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/practice/practice1.webp',
+          fallbackPath: 'portfolio/practice/practice1.jpg',
+          alt: 'Practice platform screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/practice/practice2.webp',
+          fallbackPath: 'portfolio/practice/practice2.jpg',
+          alt: 'Practice platform screenshot 2',
+        },
+        {
+          webpPath: 'portfolio/practice/practice3.webp',
+          fallbackPath: 'portfolio/practice/practice3.jpg',
+          alt: 'Practice platform screenshot 3',
+        },
+        {
+          webpPath: 'portfolio/practice/practice4.webp',
+          fallbackPath: 'portfolio/practice/practice4.jpg',
+          alt: 'Practice platform screenshot 4',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
   },
   {
-    title: 'HyperTrade',
+    title: 'Viennaresidence',
+    slug: 'viennaresidence',
+    year: 2022,
     description:
-      'High-frequency trading API backend. Sub-ms latency with Redis and optimized Express middleware.',
-    tags: ['Express', 'Redis', 'TS'],
-    link: '#',
-    imageKey: 'ecommerce',
+      'Built and maintained a rental platform operating in Vienna and Frankfurt, helping property owners find tenants while the system handles booking and operational support workflows.',
+    tags: ['Laravel', 'Angular', 'Property Rental', 'Booking Platform'],
+    links: {
+      live: 'https://www.viennaresidence.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/viennaresidence/vienna.webp',
+          fallbackPath: 'portfolio/viennaresidence/vienna.png',
+          alt: 'Viennaresidence screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/viennaresidence/vienna1.webp',
+          fallbackPath: 'portfolio/viennaresidence/vienna1.png',
+          alt: 'Viennaresidence screenshot 2',
+        },
+        {
+          webpPath: 'portfolio/viennaresidence/vienna2.webp',
+          fallbackPath: 'portfolio/viennaresidence/vienna2.png',
+          alt: 'Viennaresidence screenshot 3',
+        },
+        {
+          webpPath: 'portfolio/viennaresidence/vienna3.webp',
+          fallbackPath: 'portfolio/viennaresidence/vienna3.png',
+          alt: 'Viennaresidence screenshot 4',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: true,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
   },
   {
-    title: 'Foundry Clone',
-    description: 'Visual-heavy interactive landing page architecture.',
-    tags: ['React', 'Framer', 'Three.js'],
-    link: '#',
-    imageKey: 'foundry',
+    title: 'BuildingHub',
+    slug: 'buildinghub',
+    year: 2019,
+    projectTimeline: {
+      startedYear: 2019,
+    },
+    description:
+      'Built and maintained a modular proptech backend platform for property operations, covering work orders, incidents, guest/vendor access, billing, subscriptions, and tenant/property administration.',
+    tags: [
+      'Node.js',
+      'TypeScript',
+      'NestJS',
+      'GraphQL',
+      'MySQL',
+      'Redis',
+      'Bull Queue',
+      'CQRS',
+      'Stripe',
+      'Docker',
+    ],
+    links: {
+      live: 'https://buildinghub.io/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/buildinghub/buildinghub.webp',
+          fallbackPath: 'portfolio/buildinghub/buildinghub.png',
+          alt: 'BuildingHub platform screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/buildinghub/buildinghub1.webp',
+          fallbackPath: 'portfolio/buildinghub/buildinghub1.png',
+          alt: 'BuildingHub platform screenshot 2',
+        },
+        {
+          webpPath: 'portfolio/buildinghub/buildinghub2.webp',
+          fallbackPath: 'portfolio/buildinghub/buildinghub2.png',
+          alt: 'BuildingHub platform screenshot 3',
+        },
+        {
+          webpPath: 'portfolio/buildinghub/buildinghub3.webp',
+          fallbackPath: 'portfolio/buildinghub/buildinghub3.png',
+          alt: 'BuildingHub platform screenshot 4',
+        },
+        {
+          webpPath: 'portfolio/buildinghub/buildinghub4.webp',
+          fallbackPath: 'portfolio/buildinghub/buildinghub4.png',
+          alt: 'BuildingHub platform screenshot 5',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
   },
   {
-    title: 'EcoSync',
-    description: 'E-commerce backend for global distribution.',
-    tags: ['Next.js', 'Stripe'],
-    link: '#',
-    imageKey: 'crypto',
+    title: 'Israel Airplane Platform',
+    slug: 'israel-airplane-platform',
+    year: 2019,
+    description:
+      'Built a WordPress-based in-flight platform backed by Amazon infrastructure, enabling passengers to access onboard digital services during flights.',
+    tags: ['WordPress', 'PHP', 'Amazon Web Services', 'In-flight Platform'],
+    links: {
+      live: null,
+      repo: null,
+    },
+    media: {
+      images: [],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: true,
+    },
   },
   {
-    title: 'Audit Dashboard',
-    description: 'Real-time reporting for VerifyIt engine.',
-    tags: ['Tailwind', 'Charts'],
-    link: '#',
-    imageKey: 'verifyit',
+    title: 'Hr Bjorkman',
+    slug: 'hr-bjorkman',
+    year: 2018,
+    description:
+      'Maintained and improved a carpet replacement scheduling platform with API-driven workflows and operational automation.',
+    tags: ['PHP', 'REST API', 'Scheduling Platform'],
+    links: {
+      live: 'https://www.hrbjorkman.se/',
+      repo: null,
+    },
+    media: {
+      images: [],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'Smart Trappstadning',
+    slug: 'smart-trappstadning',
+    year: 2018,
+    description:
+      'Built and maintained a WordPress-based lead generation platform for a Stockholm property-cleaning business, with service pages and quote flows for BRF and property-owner operations.',
+    tags: [
+      'WordPress',
+      'PHP',
+      'Local SEO',
+      'Lead Generation',
+      'B2B Services',
+      'Conversion Funnel',
+      'Cloudflare',
+    ],
+    links: {
+      live: 'https://smarttrappstadning.se/',
+      repo: null,
+    },
+    media: {
+      images: [],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'Soundsuit',
+    slug: 'soundsuit',
+    year: 2018,
+    description:
+      'Built a music streaming-focused website on WordPress with a fully manageable content workflow, allowing the owner to publish and expand content independently without ongoing developer involvement.',
+    tags: ['WordPress', 'jQuery', 'HTML', 'CSS', 'Divi Builder'],
+    links: {
+      live: 'https://soundsuit.fm/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/soundsuit/soundsuit.webp',
+          fallbackPath: 'portfolio/soundsuit/soundsuit.png',
+          alt: 'Soundsuit screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/soundsuit/soundsuit1.webp',
+          fallbackPath: 'portfolio/soundsuit/soundsuit1.png',
+          alt: 'Soundsuit screenshot 2',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Grobovoi',
+    slug: 'grobovoi',
+    year: 2016,
+    description:
+      'Built and supported an education platform for selling and delivering online courses and knowledge products.',
+    tags: ['WordPress', 'WooCommerce', 'Education Platform'],
+    links: {
+      live: 'https://www.grabovoi.education/',
+      repo: null,
+    },
+    media: {
+      images: [],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'PMSI',
+    slug: 'pmsi',
+    year: 2016,
+    description:
+      'Developed a WordPress system to streamline hiring review workflows with candidate intake, email invites, and role-specific document generation.',
+    tags: ['WordPress', 'ACF', 'jQuery', 'HTML', 'CSS', 'TCPDF', 'MySQL'],
+    links: {
+      live: 'https://www.pmsi.me/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/pmsi/pmsi.webp',
+          fallbackPath: 'portfolio/pmsi/pmsi.png',
+          alt: 'PMSI workflow platform screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Big Data System',
+    slug: 'big-data-system',
+    year: 2016,
+    description:
+      'Contributed as a front-end developer to a private big data platform for recommendation workflows across multiple enterprise industries.',
+    tags: ['TypeScript', 'AngularJS', 'HTML', 'LESS', 'Grunt', 'D3', 'Lodash'],
+    links: {
+      live: null,
+      repo: null,
+    },
+    media: {
+      images: [],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: true,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Azer Turk Bank',
+    slug: 'azer-turk-bank',
+    year: 2015,
+    description:
+      'Developed a corporate banking website with customer support flows, online services, and a currency exchange calculator.',
+    tags: ['PHP', 'JavaScript', 'jQuery', 'Banking', 'UI/UX', 'Calculator'],
+    links: {
+      live: 'https://azerturkbank.az/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/azerturkbank/azerturkbank-imac21.webp',
+          fallbackPath: 'portfolio/azerturkbank/azerturkbank-imac21.png',
+          alt: 'Azer Turk Bank desktop view',
+        },
+        {
+          webpPath: 'portfolio/azerturkbank/azerturkbank-ipad.webp',
+          fallbackPath: 'portfolio/azerturkbank/azerturkbank-ipad.png',
+          alt: 'Azer Turk Bank tablet view',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'SunWay',
+    slug: 'sunway',
+    year: 2015,
+    description:
+      'Built and improved an e-commerce store for UV clothing, extending WooCommerce functionality and integrating Mailchimp.',
+    tags: ['WordPress', 'WooCommerce', 'Visual Composer', 'HTML', 'CSS', 'Mailchimp'],
+    links: {
+      live: 'https://sunwayuvclothing.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/sunway/sunway.webp',
+          fallbackPath: 'portfolio/sunway/sunway.png',
+          alt: 'SunWay storefront screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/sunway/sunway1.webp',
+          fallbackPath: 'portfolio/sunway/sunway1.png',
+          alt: 'SunWay storefront screenshot 2',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'OMG',
+    slug: 'omg',
+    year: 2015,
+    description:
+      'Built a content-focused platform for reading trending topics with a Laravel backend and Bootstrap frontend, optimized with Amazon infrastructure.',
+    tags: ['Laravel 4/5', 'jQuery', 'Amazon', 'Blade', 'Bootstrap', 'HTML', 'CSS'],
+    links: {
+      live: 'http://omygsh.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/omygsh/omygsh.webp',
+          fallbackPath: 'portfolio/omygsh/omygsh.jpg',
+          alt: 'OMG content platform screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Questomania',
+    slug: 'questomania',
+    year: 2014,
+    description:
+      'Built an escape-room website with self-service booking and cancellation flows, allowing visitors to manage reservations online.',
+    tags: ['WordPress', 'WooCommerce', 'Booking'],
+    links: {
+      live: 'https://www.questomania.co.il',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/questomania/questomania.webp',
+          fallbackPath: 'portfolio/questomania/questomania.png',
+          alt: 'Questomania booking website screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'Earny',
+    slug: 'earny',
+    year: 2014,
+    description:
+      'Built a mobile-first rewards platform where users earned account bonuses for app installs, with API-driven advertiser workflows.',
+    tags: ['Symfony2', 'jQuery', 'REST API', 'Responsive Design', 'PHP'],
+    links: {
+      live: 'http://earny.ru/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/earny/earny.webp',
+          fallbackPath: 'portfolio/earny/earny.png',
+          alt: 'Earny platform screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'CheapCouriersUK',
+    slug: 'cheapcouriersuk',
+    year: 2013,
+    description:
+      'Built a logistics platform for UK parcel delivery with shipping cost calculations, pickup scheduling, and integrated card/PayPal payments.',
+    tags: ['PHP', 'Kohana', 'jQuery UI', 'MySQL', 'Logistics APIs', 'PayPal', 'Payments'],
+    links: {
+      live: 'http://www.cheapcouriersuk.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/cheapcourier/cheapcouriersuk.webp',
+          fallbackPath: 'portfolio/cheapcourier/cheapcouriersuk.png',
+          alt: 'CheapCouriersUK platform screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Fiffr',
+    slug: 'fiffr',
+    year: 2013,
+    description:
+      'Contributed to a family-focused platform for tracking child growth, nutrition, and activity, completing both backend and frontend delivery.',
+    tags: ['CodeIgniter', 'jQuery', 'MySQL', 'Bootstrap', 'PHP'],
+    links: {
+      live: 'http://fiffr.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/fiffr/fiffrcom-0.webp',
+          fallbackPath: 'portfolio/fiffr/fiffr.com - 0.jpg',
+          alt: 'Fiffr screen 1',
+        },
+        {
+          webpPath: 'portfolio/fiffr/fiffrcom-1.webp',
+          fallbackPath: 'portfolio/fiffr/fiffr.com - 1.jpg',
+          alt: 'Fiffr screen 2',
+        },
+        {
+          webpPath: 'portfolio/fiffr/fiffrcom-2.webp',
+          fallbackPath: 'portfolio/fiffr/fiffr.com - 2.jpg',
+          alt: 'Fiffr screen 3',
+        },
+        {
+          webpPath: 'portfolio/fiffr/fiffrcom-3.webp',
+          fallbackPath: 'portfolio/fiffr/fiffr.com - 3.jpg',
+          alt: 'Fiffr screen 4',
+        },
+        {
+          webpPath: 'portfolio/fiffr/fiffrcom-4.webp',
+          fallbackPath: 'portfolio/fiffr/fiffr.com - 4.png',
+          alt: 'Fiffr screen 5',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Anonmap',
+    slug: 'anonmap',
+    year: 2013,
+    description:
+      'Built a cross-browser anonymous image board with topic feeds, map-based views, social sharing, clustering, and category filtering.',
+    tags: ['PHP', 'JavaScript', 'Maps', 'Social APIs', 'Forum', 'Image Board'],
+    links: {
+      live: 'http://anonmap.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/anonmap/anonmap.webp',
+          fallbackPath: 'portfolio/anonmap/anonmap.png',
+          alt: 'Anonmap platform screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
+  },
+  {
+    title: 'Skybase',
+    slug: 'skybase',
+    year: 2013,
+    description:
+      'Built a social networking platform from scratch (frontend and backend), with a connected mobile app delivered before the website.',
+    tags: ['Laravel', 'jQuery', 'MongoDB', 'MySQL', 'Social Network'],
+    links: {
+      live: 'https://skybase.com',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/skybase/skybace.webp',
+          fallbackPath: 'portfolio/skybase/skybace.png',
+          alt: 'Skybase screenshot 1',
+        },
+        {
+          webpPath: 'portfolio/skybase/skybace1.webp',
+          fallbackPath: 'portfolio/skybase/skybace1.png',
+          alt: 'Skybase screenshot 2',
+        },
+        {
+          webpPath: 'portfolio/skybase/skybace2.webp',
+          fallbackPath: 'portfolio/skybase/skybace2.png',
+          alt: 'Skybase screenshot 3',
+        },
+        {
+          webpPath: 'portfolio/skybase/skybace3.webp',
+          fallbackPath: 'portfolio/skybase/skybace3.png',
+          alt: 'Skybase screenshot 4',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: true,
+      isHidden: true,
+    },
+  },
+  {
+    title: 'Alaska Dream Makers',
+    slug: 'alaska-dream-makers',
+    year: 2013,
+    description:
+      'Supported a WordPress-based real estate platform where customers could browse and choose land options in Alaska.',
+    tags: ['WordPress', 'WooCommerce', 'Real Estate'],
+    links: {
+      live: 'http://alaskadreammakers.com/',
+      repo: null,
+    },
+    media: {
+      images: [
+        {
+          webpPath: 'portfolio/alaska/alaskadreammakers.webp',
+          fallbackPath: 'portfolio/alaska/alaskadreammakers.png',
+          alt: 'Alaska Dream Makers website screenshot',
+        },
+      ],
+    },
+    meta: {
+      isFeatured: false,
+      isNDA: false,
+      isArchived: false,
+      isHidden: false,
+    },
   },
 ];
 
@@ -172,9 +900,9 @@ export const TWEETS = [
 ];
 
 export const DEFAULT_PROFILE = {
-  brandInitial: 'D',
-  brandName: 'Dev',
-  brandAccent: 'Portfolio',
+  brandInitial: 'OZ',
+  brandName: 'Oleksandr',
+  brandAccent: 'Zemlianoi',
   openToWorkLabel: 'Open to new opportunities',
   headingLead: 'Engineering',
   headingHighlight: 'Reliable Systems.',

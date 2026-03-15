@@ -48,7 +48,9 @@ Recommended fields:
 - `siteConfig/main`:
   `sectionIds` (array), `navItems` (array), optional `projectImages` (object)
 - Collection docs:
-  include `order` number for sorting.
+  include `order` number for sorting (except `experience`).
+- `experience` docs:
+  use `timeline.from` / `timeline.to` objects (year + optional month); current roles use `to: null`.
 
 ## 4. Run locally
 
@@ -94,11 +96,23 @@ npx firebase-tools use --add
 npm run firebase:deploy
 ```
 
+## 7. Seed experience data
+
+```bash
+npm run seed:experience
+```
+
+To replace the collection with only the seed docs:
+
+```bash
+npm run seed:experience -- --prune
+```
+
 ## Security note
 
-Current `firestore.rules` are public read / no writes:
+For production/public mode, keep Firestore as read-only:
 
 - `allow read: if true`
 - `allow write: if false`
 
-This is suitable for a public portfolio. Adjust rules later if you add authenticated admin writes.
+This repository may temporarily use a time-limited write rule during seeding, then should be reverted back to read-only.

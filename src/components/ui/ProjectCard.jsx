@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { ExternalLink, Layers } from 'lucide-react';
 
 const STACK_POSITIONS = [
@@ -7,16 +8,84 @@ const STACK_POSITIONS = [
   { r: 15, x: -10, y: 15 },
 ];
 
+function normalizePreviewItem(item) {
+  if (typeof item === 'string') {
+    return { type: 'gradient', className: item };
+  }
+
+  if (item?.type === 'gradient') {
+    return {
+      type: 'gradient',
+      className: item.className || 'bg-slate-700',
+    };
+  }
+
+  return {
+    type: 'image',
+    src: typeof item?.src === 'string' ? item.src : '',
+    fallbackSrc: typeof item?.fallbackSrc === 'string' ? item.fallbackSrc : '',
+    alt: item?.alt || 'Project preview image',
+  };
+}
+
+function PreviewStackItem({ item, style }) {
+  const normalizedItem = normalizePreviewItem(item);
+  const initialSrc = normalizedItem.src || normalizedItem.fallbackSrc || '';
+  const [currentSrc, setCurrentSrc] = useState(initialSrc);
+
+  useEffect(() => {
+    setCurrentSrc(initialSrc);
+  }, [initialSrc]);
+
+  if (normalizedItem.type === 'gradient' || !currentSrc) {
+    return (
+      <div
+        className={`absolute inset-0 rounded-xl shadow-xl border-4 border-white dark:border-slate-800 ${
+          normalizedItem.className || 'bg-slate-700'
+        } transform transition-all duration-500 ease-out`}
+        style={style}
+      />
+    );
+  }
+
+  return (
+    <div
+      className="absolute inset-0 rounded-xl shadow-xl border-4 border-white dark:border-slate-800 overflow-hidden bg-slate-700 transform transition-all duration-500 ease-out"
+      style={style}
+    >
+      <img
+        src={currentSrc}
+        alt={normalizedItem.alt}
+        loading="lazy"
+        className="w-full h-full object-cover"
+        onError={() => {
+          if (
+            normalizedItem.fallbackSrc &&
+            currentSrc !== normalizedItem.fallbackSrc
+          ) {
+            setCurrentSrc(normalizedItem.fallbackSrc);
+            return;
+          }
+          setCurrentSrc('');
+        }}
+      />
+    </div>
+  );
+}
+
 export default function ProjectCard({
   title,
   description,
   tags,
   link,
+  isArchived,
   images,
   onOpenGallery,
 }) {
   const previewImages = (images || []).slice(0, 4);
   const projectTags = tags || [];
+  const hasLiveLink =
+    !isArchived && typeof link === 'string' && link.trim().length > 0 && link.trim() !== '#';
 
   return (
     <div className="group rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:border-orange-500/30 transition-all duration-500 shadow-sm hover:shadow-2xl flex flex-col h-full">
@@ -28,13 +97,13 @@ export default function ProjectCard({
           {previewImages
             .slice()
             .reverse()
-            .map((imgClass, index) => {
+            .map((imageItem, index) => {
               const revIdx = previewImages.length - 1 - index;
               const { r, x, y } = STACK_POSITIONS[revIdx];
               return (
-                <div
+                <PreviewStackItem
                   key={`${title}-${index}`}
-                  className={`absolute inset-0 rounded-xl shadow-xl border-4 border-white dark:border-slate-800 ${imgClass} transform transition-all duration-500 ease-out`}
+                  item={imageItem}
                   style={{
                     transform: `rotate(${r}deg) translate(${x}px, ${y}px)`,
                     zIndex: 10 - revIdx,
@@ -55,12 +124,17 @@ export default function ProjectCard({
           <h3 className="font-bold text-slate-900 dark:text-slate-50 text-xl group-hover:text-orange-600 transition-colors">
             {title}
           </h3>
-          <a
-            href={link}
-            className="text-slate-400 hover:text-orange-500 transition-colors"
-          >
-            <ExternalLink className="w-5 h-5" />
-          </a>
+          {hasLiveLink ? (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              referrerPolicy="no-referrer"
+              className="text-slate-400 hover:text-orange-500 transition-colors"
+            >
+              <ExternalLink className="w-5 h-5" />
+            </a>
+          ) : null}
         </div>
         <p className="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed flex-grow text-sm">
           {description}

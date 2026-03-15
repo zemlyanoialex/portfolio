@@ -15,6 +15,55 @@ function sortByOrder(a, b) {
   return (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER);
 }
 
+function toComparableValue(point, fallback = 0) {
+  if (!point || typeof point.year !== 'number') {
+    return fallback;
+  }
+  const month = typeof point.month === 'number' ? point.month : 1;
+  return point.year * 100 + month;
+}
+
+function isCurrentRole(item) {
+  return Boolean(item.timeline) && !item.timeline.to;
+}
+
+function sortExperienceByTimelineDesc(a, b) {
+  const aHasTimeline = Boolean(a.timeline?.from || a.timeline?.to);
+  const bHasTimeline = Boolean(b.timeline?.from || b.timeline?.to);
+
+  if (!aHasTimeline && !bHasTimeline) {
+    return sortByOrder(a, b);
+  }
+
+  if (aHasTimeline && !bHasTimeline) {
+    return -1;
+  }
+  if (!aHasTimeline && bHasTimeline) {
+    return 1;
+  }
+
+  const aCurrent = isCurrentRole(a);
+  const bCurrent = isCurrentRole(b);
+
+  if (aCurrent !== bCurrent) {
+    return aCurrent ? -1 : 1;
+  }
+
+  const aTo = toComparableValue(a.timeline?.to, 0);
+  const bTo = toComparableValue(b.timeline?.to, 0);
+  if (aTo !== bTo) {
+    return bTo - aTo;
+  }
+
+  const aFrom = toComparableValue(a.timeline?.from, 0);
+  const bFrom = toComparableValue(b.timeline?.from, 0);
+  if (aFrom !== bFrom) {
+    return bFrom - aFrom;
+  }
+
+  return sortByOrder(a, b);
+}
+
 function withDocId(documentSnapshot) {
   return {
     id: documentSnapshot.id,
@@ -22,9 +71,9 @@ function withDocId(documentSnapshot) {
   };
 }
 
-async function getOrderedCollection(collectionName) {
+async function getCollection(collectionName, sortFn = sortByOrder) {
   const snapshot = await getDocs(collection(db, collectionName));
-  return snapshot.docs.map(withDocId).sort(sortByOrder);
+  return snapshot.docs.map(withDocId).sort(sortFn);
 }
 
 function pickRemoteOrDefault(remoteValue, fallbackValue) {
@@ -54,12 +103,12 @@ export async function fetchPortfolioContent() {
       profileSnapshot,
       siteConfigSnapshot,
     ] = await Promise.all([
-      getOrderedCollection(COLLECTIONS.techStack),
-      getOrderedCollection(COLLECTIONS.stats),
-      getOrderedCollection(COLLECTIONS.experience),
-      getOrderedCollection(COLLECTIONS.projects),
-      getOrderedCollection(COLLECTIONS.blogPosts),
-      getOrderedCollection(COLLECTIONS.updates),
+      getCollection(COLLECTIONS.techStack),
+      getCollection(COLLECTIONS.stats),
+      getCollection(COLLECTIONS.experience, sortExperienceByTimelineDesc),
+      getCollection(COLLECTIONS.projects),
+      getCollection(COLLECTIONS.blogPosts),
+      getCollection(COLLECTIONS.updates),
       getDoc(doc(db, 'profile', 'main')),
       getDoc(doc(db, 'siteConfig', 'main')),
     ]);

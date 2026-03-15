@@ -10,8 +10,83 @@ const ICONS = {
   Zap,
 };
 
-export default function StatsSection({ stats }) {
-  const statsItems = stats?.length ? stats : STATS;
+function normalizeMonth(monthValue) {
+  if (typeof monthValue !== 'number' || Number.isNaN(monthValue)) {
+    return 1;
+  }
+  return Math.min(12, Math.max(1, monthValue));
+}
+
+function getStartPoint(job) {
+  const from = job?.timeline?.from;
+  if (from && typeof from.year === 'number') {
+    return {
+      year: from.year,
+      month: normalizeMonth(from.month),
+    };
+  }
+
+  if (typeof job?.period === 'string') {
+    const yearMatch = job.period.match(/\b(19|20)\d{2}\b/);
+    if (yearMatch) {
+      return { year: Number(yearMatch[0]), month: 1 };
+    }
+  }
+
+  return null;
+}
+
+function calculateYearsExperience(experienceItems) {
+  if (!Array.isArray(experienceItems) || !experienceItems.length) {
+    return null;
+  }
+
+  let earliestStart = null;
+  for (const job of experienceItems) {
+    const startPoint = getStartPoint(job);
+    if (!startPoint) {
+      continue;
+    }
+
+    const comparable = startPoint.year * 100 + startPoint.month;
+    if (!earliestStart || comparable < earliestStart.comparable) {
+      earliestStart = { ...startPoint, comparable };
+    }
+  }
+
+  if (!earliestStart) {
+    return null;
+  }
+
+  const now = new Date();
+  const nowYear = now.getFullYear();
+  const nowMonth = now.getMonth() + 1;
+  const totalMonths =
+    (nowYear - earliestStart.year) * 12 + (nowMonth - earliestStart.month) + 1;
+
+  const years = Math.max(1, Math.floor(totalMonths / 12));
+  return `${years}+`;
+}
+
+function calculateProjectsCompleted(projectItems) {
+  if (!Array.isArray(projectItems) || !projectItems.length) {
+    return null;
+  }
+  return String(projectItems.length);
+}
+
+export default function StatsSection({ stats, experience, projects }) {
+  const yearsExpValue = calculateYearsExperience(experience);
+  const projectsCompletedValue = calculateProjectsCompleted(projects);
+  const statsItems = (stats?.length ? stats : STATS).map((stat) => {
+    if (stat.label === 'Years Exp' && yearsExpValue) {
+      return { ...stat, value: yearsExpValue };
+    }
+    if (stat.label === 'Projects Completed' && projectsCompletedValue) {
+      return { ...stat, value: projectsCompletedValue };
+    }
+    return stat;
+  });
 
   return (
     <section
