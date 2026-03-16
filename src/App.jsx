@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from './components/layout/Navigation';
-import BlogSection from './components/sections/BlogSection';
 import ContactSection from './components/sections/ContactSection';
 import ExperienceSection from './components/sections/ExperienceSection';
 import GalleryModal from './components/sections/GalleryModal';
@@ -8,22 +7,27 @@ import HeroSection from './components/sections/HeroSection';
 import PortfolioSection from './components/sections/PortfolioSection';
 import SiteFooter from './components/sections/SiteFooter';
 import StatsSection from './components/sections/StatsSection';
-import UpdatesSection from './components/sections/UpdatesSection';
 import { SECTION_IDS } from './data/portfolioData';
 import usePortfolioContent from './hooks/usePortfolioContent';
 
+const HIDDEN_SECTION_IDS = new Set(['updates', 'blog']);
+
 export default function App() {
   const { content, error, loading, usingFirestore } = usePortfolioContent();
-  const sectionIds = content.siteConfig?.sectionIds?.length
+  const configuredSectionIds = content.siteConfig?.sectionIds?.length
     ? content.siteConfig.sectionIds
     : SECTION_IDS;
+  const sectionIds = configuredSectionIds.filter((sectionId) => !HIDDEN_SECTION_IDS.has(sectionId));
+  const configuredNavItems = content.siteConfig?.navItems;
+  const navItems = (configuredNavItems?.length ? configuredNavItems : sectionIds).filter(
+    (sectionId) => !HIDDEN_SECTION_IDS.has(sectionId)
+  );
 
   const [activeSection, setActiveSection] = useState('intro');
   const [darkMode, setDarkMode] = useState(true);
   const [galleryOpen, setGalleryOpen] = useState(false);
   const [currentGalleryImages, setCurrentGalleryImages] = useState([]);
   const [currentGalleryTitle, setCurrentGalleryTitle] = useState('');
-  const [selectedPost, setSelectedPost] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,18 +49,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [sectionIds]);
 
-  useEffect(() => {
-    const blogPosts = content.blogPosts || [];
-    if (
-      selectedPost &&
-      !blogPosts.some((post) => String(post.id) === String(selectedPost.id))
-    ) {
-      setSelectedPost(null);
-    }
-  }, [content.blogPosts, selectedPost]);
-
   const scrollTo = (sectionId) => {
-    setSelectedPost(null);
     const element = document.getElementById(sectionId);
     if (element) {
       window.scrollTo({ top: element.offsetTop - 80, behavior: 'smooth' });
@@ -74,15 +67,14 @@ export default function App() {
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 font-sans transition-colors duration-300">
         <Navigation
           activeSection={activeSection}
-          selectedPost={selectedPost}
           darkMode={darkMode}
           onToggleDarkMode={() => setDarkMode((prev) => !prev)}
           onScrollTo={scrollTo}
-          navItems={content.siteConfig?.navItems}
+          navItems={navItems}
           profile={content.profile}
         />
 
-        <HeroSection profile={content.profile} techStack={content.techStack} />
+        <HeroSection profile={content.profile} />
         <StatsSection
           stats={content.stats}
           experience={content.experience}
@@ -96,12 +88,6 @@ export default function App() {
           projects={content.projects}
           projectImages={content.projectImages}
           onOpenGallery={openGallery}
-        />
-        <UpdatesSection updates={content.updates} profile={content.profile} />
-        <BlogSection
-          blogPosts={content.blogPosts}
-          selectedPost={selectedPost}
-          onSelectPost={setSelectedPost}
         />
         <ContactSection profile={content.profile} />
         <SiteFooter profile={content.profile} />

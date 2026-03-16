@@ -1,9 +1,10 @@
-import { Award, Code, Server, Star, Users, Zap } from 'lucide-react';
+import { Award, Code, MapPin, Server, Star, Users, Zap } from 'lucide-react';
 import { STATS } from '../../data/portfolioData';
 
 const ICONS = {
   Award,
   Code,
+  MapPin,
   Server,
   Star,
   Users,
@@ -78,7 +79,10 @@ function calculateProjectsCompleted(projectItems) {
 export default function StatsSection({ stats, experience, projects }) {
   const yearsExpValue = calculateYearsExperience(experience);
   const projectsCompletedValue = calculateProjectsCompleted(projects);
-  const statsItems = (stats?.length ? stats : STATS).map((stat) => {
+  const sourceStats = Array.isArray(stats) ? stats : [];
+  const sourceStatsByLabel = new Map(sourceStats.map((item) => [item.label, item]));
+  const statsItems = STATS.map((defaultStat) => {
+    const stat = sourceStatsByLabel.get(defaultStat.label) || defaultStat;
     if (stat.label === 'Years Exp' && yearsExpValue) {
       return { ...stat, value: yearsExpValue };
     }
@@ -93,7 +97,7 @@ export default function StatsSection({ stats, experience, projects }) {
       id="stats"
       className="py-12 px-6 border-y border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/50"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
         {statsItems.map((stat) => {
           const Icon = ICONS[stat.icon] || Code;
           return (

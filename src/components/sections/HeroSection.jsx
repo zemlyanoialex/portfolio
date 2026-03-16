@@ -1,21 +1,52 @@
-import { Code, Cpu, Database, FileText, Globe, Terminal } from 'lucide-react';
+import {
+  BriefcaseBusiness,
+  FileText,
+  Github,
+  Linkedin,
+  Twitch,
+  Twitter,
+} from 'lucide-react';
 import TechIconMini from '../ui/TechIconMini';
-import { DEFAULT_PROFILE, TECH_STACK } from '../../data/portfolioData';
+import { DEFAULT_PROFILE } from '../../data/portfolioData';
 
-const ICONS = {
-  Code,
-  Cpu,
-  Database,
-  Globe,
-  Terminal,
-};
-
-export default function HeroSection({ profile, techStack }) {
+export default function HeroSection({ profile }) {
   const profileData = {
     ...DEFAULT_PROFILE,
     ...profile,
   };
-  const techItems = techStack?.length ? techStack : TECH_STACK;
+  const socialLinks = profileData.socialLinks || {};
+  const socialItems = [
+    {
+      key: 'upwork',
+      label: 'Upwork',
+      href: socialLinks.upwork,
+      icon: BriefcaseBusiness,
+    },
+    {
+      key: 'linkedin',
+      label: 'LinkedIn',
+      href: socialLinks.linkedin,
+      icon: Linkedin,
+    },
+    {
+      key: 'github',
+      label: 'GitHub',
+      href: socialLinks.github,
+      icon: Github,
+    },
+    {
+      key: 'x',
+      label: 'X',
+      href: socialLinks.x,
+      icon: Twitter,
+    },
+    {
+      key: 'twitch',
+      label: 'Twitch',
+      href: socialLinks.twitch,
+      icon: Twitch,
+    },
+  ].filter((item) => typeof item.href === 'string' && item.href.trim() && item.href.trim() !== '#');
 
   return (
     <section id="intro" className="pt-32 pb-20 md:pt-48 md:pb-24 px-6">
@@ -29,9 +60,16 @@ export default function HeroSection({ profile, techStack }) {
             <span className="text-orange-500">{profileData.headingHighlight}</span>
           </h1>
           <div className="flex gap-4 mb-8">
-            {techItems.map((item) => {
-              const Icon = ICONS[item.icon] || Terminal;
-              return <TechIconMini key={item.label} icon={Icon} label={item.label} />;
+            {socialItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <TechIconMini
+                  key={item.key}
+                  icon={Icon}
+                  label={item.label}
+                  href={item.href}
+                />
+              );
             })}
           </div>
           <p className="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-lg leading-relaxed">
@@ -52,22 +90,24 @@ export default function HeroSection({ profile, techStack }) {
           <div className="relative z-10 bg-[#0f1117] rounded-3xl border border-slate-800 p-8 shadow-2xl rotate-2">
             <div className="font-mono text-xs md:text-sm leading-relaxed text-slate-300">
               <p className="text-purple-400">
-                export class <span className="text-yellow-200">VerifyEngine</span> {'{'}
+                export async function <span className="text-blue-300">buildProduct</span>(idea) {'{'}
+              </p>
+              <p className="pl-4">
+                <span className="text-purple-400">const</span> scope = await refine(idea);
+              </p>
+              <p className="pl-4">
+                <span className="text-purple-400">const</span> mvp = await ship(scope);
+              </p>
+              <p className="pl-4">
+                await listenToUsers(mvp);
+              </p>
+              <p className="pl-4 text-emerald-300">
+                {'// Bugs are just feature requests in disguise :)'}
               </p>
               <p className="pl-4 text-purple-400">
-                async <span className="text-blue-300">processBatch</span>(id: string) {'{'}
+                return iterate(mvp);
               </p>
-              <p className="pl-8">
-                <span className="text-purple-400">const</span> stream ={' '}
-                <span className="text-purple-400">new</span>{' '}
-                <span className="text-yellow-200">AuditStream</span>();
-              </p>
-              <p className="pl-8 text-purple-400">
-                return await <span className="text-slate-300">db.docs</span>
-                .<span className="text-blue-300">find</span>({'{'} id {'}'})
-              </p>
-              <p className="pl-12">.pipe(stream).collect();</p>
-              <p className="pl-4">{'}'} {'}'}</p>
+              <p>{'}'}</p>
             </div>
           </div>
           <div className="absolute inset-0 bg-orange-500/10 blur-[100px] -z-10"></div>

@@ -32,28 +32,14 @@ export default function ContactSection({ profile }) {
               </div>
             </div>
           </div>
-          <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid md:grid-cols-2 gap-4">
-              <input
-                type="text"
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 focus:border-orange-500 outline-none transition-colors"
-                placeholder="Name"
-              />
-              <input
-                type="email"
-                className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 focus:border-orange-500 outline-none transition-colors"
-                placeholder="Email"
-              />
-            </div>
-            <textarea
-              rows="4"
-              className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 focus:border-orange-500 outline-none transition-colors"
-              placeholder="How can I help you?"
-            ></textarea>
-            <button className="w-full bg-orange-500 text-white font-black py-5 rounded-xl hover:bg-orange-600 transition-all shadow-lg flex items-center justify-center gap-2 active:scale-[0.98]">
+          <div className="space-y-4">
+            <a
+              href={`mailto:${profileData.email}`}
+              className="w-full bg-orange-500 text-white font-black py-5 rounded-xl hover:bg-orange-600 transition-all shadow-lg flex items-center justify-center gap-2 active:scale-[0.98]"
+            >
               <Send className="w-5 h-5" /> Send Message
-            </button>
-          </form>
+            </a>
+          </div>
         </div>
       </div>
     </section>
