@@ -259,7 +259,6 @@ export default function TestimonialsSection({ testimonials }) {
                           <div className="text-sm">
                             <div className="font-semibold text-slate-900 dark:text-white">{personName}</div>
                             <div className="text-slate-500 dark:text-slate-400">
-                              {item.role ? `${item.role}${item.company ? ' · ' : ''}` : ''}
                               {item.company || null}
                             </div>
                           </div>
