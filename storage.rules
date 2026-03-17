@@ -8,6 +8,12 @@ service firebase.storage {
       allow write: if false;
     }
 
+    // Public read for client logos.
+    match /client/{allPaths=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+
     // Deny everything else by default.
     match /{allPaths=**} {
       allow read, write: if false;

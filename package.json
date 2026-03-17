@@ -19,10 +19,12 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "seed": "npm run seed:experience -- --prune && npm run seed:projects -- --prune",
+    "seed": "npm run seed:experience -- --prune && npm run seed:projects -- --prune && npm run seed:clients -- --prune && npm run seed:testimonials -- --prune",
     "firebase:deploy": "npm run build && npx firebase-tools deploy --only hosting,firestore",
     "seed:experience": "node scripts/seedExperience.js",
-    "seed:projects": "node scripts/seedProjects.js"
+    "seed:projects": "node scripts/seedProjects.js",
+    "seed:clients": "node scripts/seedClients.js",
+    "seed:testimonials": "node scripts/seedTestimonials.js"
   },
   "eslintConfig": {
     "extends": [

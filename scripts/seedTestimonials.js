@@ -56,72 +56,79 @@ function getFirebaseConfig() {
   return config;
 }
 
-function slugFromTitle(title) {
-  return String(title || '')
+function slugFromName(name) {
+  return String(name || '')
     .trim()
     .toLowerCase()
-    .replace(/['"]/g, '')
+    .replace(/["']/g, '')
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
 
-function loadProjectsFromSource() {
+function loadTestimonialsFromSource() {
   const sourcePath = path.resolve(process.cwd(), 'src/data/portfolioData.js');
   const source = fs.readFileSync(sourcePath, 'utf8');
   const match = source.match(
-    /export const PORTFOLIO_PROJECTS = (\[[\s\S]*?\]);\n\nexport const CLIENTS/
+    /export const TESTIMONIALS = (\[[\s\S]*?\]);\n\nexport const BLOG_POSTS/
   );
 
   if (!match) {
-    throw new Error('Could not find PORTFOLIO_PROJECTS in src/data/portfolioData.js');
+    throw new Error('Could not find TESTIMONIALS in src/data/portfolioData.js');
   }
 
-  let projects;
+  let testimonials;
   try {
-    projects = vm.runInNewContext(match[1], {});
+    testimonials = vm.runInNewContext(match[1], {});
   } catch (error) {
-    throw new Error(`Failed to parse PORTFOLIO_PROJECTS: ${error.message}`);
+    throw new Error(`Failed to parse TESTIMONIALS: ${error.message}`);
   }
 
-  if (!Array.isArray(projects)) {
-    throw new Error('PORTFOLIO_PROJECTS is not an array');
+  if (!Array.isArray(testimonials)) {
+    throw new Error('TESTIMONIALS is not an array');
   }
 
-  return projects;
+  return testimonials;
 }
 
-function toProjectDocs(projects) {
-  return projects.map((project, index) => {
-    const normalizedProject = JSON.parse(JSON.stringify(project));
-    const id = project.slug || slugFromTitle(project.title) || `project-${index + 1}`;
+function toTestimonialDocs(testimonials) {
+  return testimonials.map((testimonial, index) => {
+    const normalized = JSON.parse(JSON.stringify(testimonial));
+    const id =
+      normalized.id
+      || normalized.slug
+      || slugFromName(`${normalized.name || ''}-${normalized.company || ''}`)
+      || `testimonial-${index + 1}`;
+
     return {
       id,
       data: {
-        ...normalizedProject,
-        order: index + 1,
+        ...normalized,
+        order: Number.isFinite(Number(normalized.order))
+          ? Number(normalized.order)
+          : index + 1,
       },
     };
   });
 }
 
-async function seedProjects({ prune }) {
+async function seedTestimonials({ prune }) {
   const firebaseConfig = getFirebaseConfig();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const projectDocs = toProjectDocs(loadProjectsFromSource());
+  const testimonialDocs = toTestimonialDocs(loadTestimonialsFromSource());
 
   const batch = writeBatch(db);
-  projectDocs.forEach((project) => {
-    batch.set(doc(db, 'projects', project.id), project.data);
+  testimonialDocs.forEach((testimonial) => {
+    batch.set(doc(db, 'testimonials', testimonial.id), testimonial.data);
   });
 
   let prunedCount = 0;
   if (prune) {
-    const snapshot = await getDocs(collection(db, 'projects'));
-    const keepIds = new Set(projectDocs.map((project) => project.id));
+    const snapshot = await getDocs(collection(db, 'testimonials'));
+    const keepIds = new Set(testimonialDocs.map((testimonial) => testimonial.id));
     snapshot.docs.forEach((snapshotDoc) => {
       if (!keepIds.has(snapshotDoc.id)) {
-        batch.delete(doc(db, 'projects', snapshotDoc.id));
+        batch.delete(doc(db, 'testimonials', snapshotDoc.id));
         prunedCount += 1;
       }
     });
@@ -129,15 +136,15 @@ async function seedProjects({ prune }) {
 
   await batch.commit();
 
-  console.log(`Seeded ${projectDocs.length} project documents.`);
+  console.log(`Seeded ${testimonialDocs.length} testimonial documents.`);
   if (prune) {
-    console.log(`Pruned ${prunedCount} extra project documents.`);
+    console.log(`Pruned ${prunedCount} extra testimonial documents.`);
   }
 }
 
 async function main() {
   const prune = process.argv.includes('--prune');
-  await seedProjects({ prune });
+  await seedTestimonials({ prune });
 }
 
 main().catch((error) => {

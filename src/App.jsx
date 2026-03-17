@@ -1,27 +1,62 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from './components/layout/Navigation';
 import ContactSection from './components/sections/ContactSection';
+import ClientsSection from './components/sections/ClientsSection';
 import ExperienceSection from './components/sections/ExperienceSection';
 import GalleryModal from './components/sections/GalleryModal';
 import HeroSection from './components/sections/HeroSection';
 import PortfolioSection from './components/sections/PortfolioSection';
 import SiteFooter from './components/sections/SiteFooter';
 import StatsSection from './components/sections/StatsSection';
+import TestimonialsSection from './components/sections/TestimonialsSection';
 import { SECTION_IDS } from './data/portfolioData';
 import usePortfolioContent from './hooks/usePortfolioContent';
 
 const HIDDEN_SECTION_IDS = new Set(['updates', 'blog']);
 
+function ensureSectionBefore(sectionIds, targetSectionId, beforeSectionId) {
+  const withoutTarget = sectionIds.filter((sectionId) => sectionId !== targetSectionId);
+  const beforeIndex = withoutTarget.indexOf(beforeSectionId);
+
+  if (beforeIndex === -1) {
+    return [...withoutTarget, targetSectionId];
+  }
+
+  return [
+    ...withoutTarget.slice(0, beforeIndex),
+    targetSectionId,
+    ...withoutTarget.slice(beforeIndex),
+  ];
+}
+
+function normalizeSections(sectionIds, hasTestimonials) {
+  const base = Array.isArray(sectionIds) ? sectionIds : [];
+  if (!hasTestimonials) {
+    return base.filter((sectionId) => sectionId !== 'testimonials');
+  }
+  return ensureSectionBefore(base, 'testimonials', 'contact');
+}
+
 export default function App() {
   const { content, error, loading, usingFirestore } = usePortfolioContent();
+  const hasTestimonials = Array.isArray(content.testimonials)
+    && content.testimonials.some(
+      (item) =>
+        !item?.isHidden
+        && typeof item?.quote === 'string'
+        && item.quote.trim().length > 0
+    );
   const configuredSectionIds = content.siteConfig?.sectionIds?.length
     ? content.siteConfig.sectionIds
     : SECTION_IDS;
-  const sectionIds = configuredSectionIds.filter((sectionId) => !HIDDEN_SECTION_IDS.has(sectionId));
+  const normalizedSectionIds = normalizeSections(configuredSectionIds, hasTestimonials);
+  const sectionIds = normalizedSectionIds.filter((sectionId) => !HIDDEN_SECTION_IDS.has(sectionId));
   const configuredNavItems = content.siteConfig?.navItems;
-  const navItems = (configuredNavItems?.length ? configuredNavItems : sectionIds).filter(
-    (sectionId) => !HIDDEN_SECTION_IDS.has(sectionId)
+  const normalizedNavItems = normalizeSections(
+    configuredNavItems?.length ? configuredNavItems : sectionIds,
+    hasTestimonials
   );
+  const navItems = normalizedNavItems.filter((sectionId) => !HIDDEN_SECTION_IDS.has(sectionId));
 
   const [activeSection, setActiveSection] = useState('intro');
   const [darkMode, setDarkMode] = useState(true);
@@ -80,6 +115,7 @@ export default function App() {
           experience={content.experience}
           projects={content.projects}
         />
+        <ClientsSection clients={content.clients} />
         <ExperienceSection
           experience={content.experience}
           usingFirestore={usingFirestore}
@@ -89,6 +125,9 @@ export default function App() {
           projectImages={content.projectImages}
           onOpenGallery={openGallery}
         />
+        {hasTestimonials ? (
+          <TestimonialsSection testimonials={content.testimonials} />
+        ) : null}
         <ContactSection profile={content.profile} />
         <SiteFooter profile={content.profile} />
 

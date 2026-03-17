@@ -56,8 +56,8 @@ function getFirebaseConfig() {
   return config;
 }
 
-function slugFromTitle(title) {
-  return String(title || '')
+function slugFromName(name) {
+  return String(name || '')
     .trim()
     .toLowerCase()
     .replace(/['"]/g, '')
@@ -65,63 +65,65 @@ function slugFromTitle(title) {
     .replace(/^-+|-+$/g, '');
 }
 
-function loadProjectsFromSource() {
+function loadClientsFromSource() {
   const sourcePath = path.resolve(process.cwd(), 'src/data/portfolioData.js');
   const source = fs.readFileSync(sourcePath, 'utf8');
   const match = source.match(
-    /export const PORTFOLIO_PROJECTS = (\[[\s\S]*?\]);\n\nexport const CLIENTS/
+    /export const CLIENTS = (\[[\s\S]*?\]);\n\nexport const TESTIMONIALS/
   );
 
   if (!match) {
-    throw new Error('Could not find PORTFOLIO_PROJECTS in src/data/portfolioData.js');
+    throw new Error('Could not find CLIENTS in src/data/portfolioData.js');
   }
 
-  let projects;
+  let clients;
   try {
-    projects = vm.runInNewContext(match[1], {});
+    clients = vm.runInNewContext(match[1], {});
   } catch (error) {
-    throw new Error(`Failed to parse PORTFOLIO_PROJECTS: ${error.message}`);
+    throw new Error(`Failed to parse CLIENTS: ${error.message}`);
   }
 
-  if (!Array.isArray(projects)) {
-    throw new Error('PORTFOLIO_PROJECTS is not an array');
+  if (!Array.isArray(clients)) {
+    throw new Error('CLIENTS is not an array');
   }
 
-  return projects;
+  return clients;
 }
 
-function toProjectDocs(projects) {
-  return projects.map((project, index) => {
-    const normalizedProject = JSON.parse(JSON.stringify(project));
-    const id = project.slug || slugFromTitle(project.title) || `project-${index + 1}`;
+function toClientDocs(clients) {
+  return clients.map((client, index) => {
+    const normalizedClient = JSON.parse(JSON.stringify(client));
+    const id = client.slug || slugFromName(client.name) || `client-${index + 1}`;
     return {
       id,
       data: {
-        ...normalizedProject,
-        order: index + 1,
+        ...normalizedClient,
+        order: Number.isFinite(Number(normalizedClient.order))
+          ? Number(normalizedClient.order)
+          : index + 1,
       },
     };
   });
 }
 
-async function seedProjects({ prune }) {
+async function seedClients({ prune }) {
   const firebaseConfig = getFirebaseConfig();
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const projectDocs = toProjectDocs(loadProjectsFromSource());
+  const clientDocs = toClientDocs(loadClientsFromSource());
 
   const batch = writeBatch(db);
-  projectDocs.forEach((project) => {
-    batch.set(doc(db, 'projects', project.id), project.data);
+  clientDocs.forEach((client) => {
+    batch.set(doc(db, 'clients', client.id), client.data);
   });
 
   let prunedCount = 0;
   if (prune) {
-    const snapshot = await getDocs(collection(db, 'projects'));
-    const keepIds = new Set(projectDocs.map((project) => project.id));
+    const snapshot = await getDocs(collection(db, 'clients'));
+    const keepIds = new Set(clientDocs.map((client) => client.id));
     snapshot.docs.forEach((snapshotDoc) => {
       if (!keepIds.has(snapshotDoc.id)) {
-        batch.delete(doc(db, 'projects', snapshotDoc.id));
+        batch.delete(doc(db, 'clients', snapshotDoc.id));
         prunedCount += 1;
       }
     });
@@ -129,15 +131,15 @@ async function seedProjects({ prune }) {
 
   await batch.commit();
 
-  console.log(`Seeded ${projectDocs.length} project documents.`);
+  console.log(`Seeded ${clientDocs.length} client documents.`);
   if (prune) {
-    console.log(`Pruned ${prunedCount} extra project documents.`);
+    console.log(`Pruned ${prunedCount} extra client documents.`);
   }
 }
 
 async function main() {
   const prune = process.argv.includes('--prune');
-  await seedProjects({ prune });
+  await seedClients({ prune });
 }
 
 main().catch((error) => {
