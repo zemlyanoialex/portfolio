@@ -1412,7 +1412,7 @@ export const DEFAULT_PROFILE = {
     twitch: "https://www.twitch.tv/zemlianoi",
     email: "mailto:oleksandr.zemlianoi@gmail.com",
   },
-  footerText: "© 2026 Engineering Portfolio / Built with React & Node",
+  footerText: "© 2026 Oleksandr Zemlianoi",
 };
 
 export const DEFAULT_SITE_CONFIG = {
