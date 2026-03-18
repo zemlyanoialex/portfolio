@@ -13,24 +13,28 @@ export default function SiteFooter({ profile }) {
       <div className="flex justify-center gap-8 mb-10">
         <a
           href={socialLinks.x || '#'}
+          aria-label="X profile"
           className="text-slate-400 hover:text-orange-500 transition-all hover:scale-110"
         >
           <Twitter className="w-6 h-6" />
         </a>
         <a
           href={socialLinks.linkedin || '#'}
+          aria-label="LinkedIn profile"
           className="text-slate-400 hover:text-orange-500 transition-all hover:scale-110"
         >
           <Linkedin className="w-6 h-6" />
         </a>
         <a
           href={socialLinks.github || '#'}
+          aria-label="GitHub profile"
           className="text-slate-400 hover:text-orange-500 transition-all hover:scale-110"
         >
           <Github className="w-6 h-6" />
         </a>
         <a
           href={socialLinks.email || `mailto:${profileData.email}`}
+          aria-label="Send email"
           className="text-slate-900 dark:text-slate-200 hover:text-orange-500 transition-all hover:scale-110"
         >
           <Mail className="w-6 h-6" />

@@ -94,7 +94,12 @@ export default function GalleryModal({
       <div className="w-full max-w-4xl relative" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center mb-4 text-white">
           <h3 className="text-xl font-bold">{title}</h3>
-          <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close gallery"
+            className="p-2 hover:bg-white/10 rounded-full transition-colors"
+          >
             <X className="w-8 h-8" />
           </button>
         </div>
