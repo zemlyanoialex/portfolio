@@ -190,7 +190,7 @@ export default function ProjectCard({
             <button
               type="button"
               onClick={openExternalProject}
-              className="text-slate-400 hover:text-orange-500 transition-colors"
+              className="h-11 w-11 -mr-2 flex items-center justify-center rounded-full text-slate-400 hover:text-orange-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
               aria-label={`Open ${title} website`}
             >
               <ExternalLink className="w-5 h-5" />

@@ -6,7 +6,7 @@ export default function TechIconMini({ icon: Icon, label, href }) {
   const normalizedHref = typeof href === 'string' ? href.trim() : '';
   const isClickable = Boolean(normalizedHref) && normalizedHref !== '#';
   const baseClassName =
-    'w-8 h-8 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-orange-500 group-hover:border-orange-500/50 transition-all shadow-sm';
+    'w-11 h-11 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 group-hover:text-orange-500 group-hover:border-orange-500/50 transition-all shadow-sm';
 
   return (
     <div className={`relative group ${isClickable ? 'cursor-pointer' : 'cursor-help'}`}>

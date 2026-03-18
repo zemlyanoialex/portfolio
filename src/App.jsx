@@ -109,26 +109,28 @@ export default function App() {
           profile={content.profile}
         />
 
-        <HeroSection profile={content.profile} />
-        <StatsSection
-          stats={content.stats}
-          experience={content.experience}
-          projects={content.projects}
-        />
-        <ClientsSection clients={content.clients} />
-        <ExperienceSection
-          experience={content.experience}
-          usingFirestore={usingFirestore}
-        />
-        <PortfolioSection
-          projects={content.projects}
-          projectImages={content.projectImages}
-          onOpenGallery={openGallery}
-        />
-        {hasTestimonials ? (
-          <TestimonialsSection testimonials={content.testimonials} />
-        ) : null}
-        <ContactSection profile={content.profile} />
+        <main id="main-content">
+          <HeroSection profile={content.profile} />
+          <StatsSection
+            stats={content.stats}
+            experience={content.experience}
+            projects={content.projects}
+          />
+          <ClientsSection clients={content.clients} />
+          <ExperienceSection
+            experience={content.experience}
+            usingFirestore={usingFirestore}
+          />
+          <PortfolioSection
+            projects={content.projects}
+            projectImages={content.projectImages}
+            onOpenGallery={openGallery}
+          />
+          {hasTestimonials ? (
+            <TestimonialsSection testimonials={content.testimonials} />
+          ) : null}
+          <ContactSection profile={content.profile} />
+        </main>
         <SiteFooter profile={content.profile} />
 
         <GalleryModal

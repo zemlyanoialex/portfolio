@@ -205,7 +205,7 @@ export default function TestimonialsSection({ testimonials }) {
               <button
                 type="button"
                 onClick={goPrev}
-                className="h-9 w-9 rounded-full border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-orange-500 hover:border-orange-400/60 transition-colors"
+                className="h-11 w-11 rounded-full border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-orange-500 hover:border-orange-400/60 transition-colors"
                 aria-label="Previous testimonials"
               >
                 ←
@@ -213,7 +213,7 @@ export default function TestimonialsSection({ testimonials }) {
               <button
                 type="button"
                 onClick={goNext}
-                className="h-9 w-9 rounded-full border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-orange-500 hover:border-orange-400/60 transition-colors"
+                className="h-11 w-11 rounded-full border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-orange-500 hover:border-orange-400/60 transition-colors"
                 aria-label="Next testimonials"
               >
                 →
@@ -280,12 +280,17 @@ export default function TestimonialsSection({ testimonials }) {
                 type="button"
                 onClick={() => setCurrentPage(index)}
                 aria-label={`Go to testimonials page ${index + 1}`}
-                className={`h-2.5 rounded-full transition-all ${
-                  index === safePage
-                    ? 'w-8 bg-orange-500'
-                    : 'w-2.5 bg-slate-300 dark:bg-slate-700 hover:bg-slate-400 dark:hover:bg-slate-600'
-                }`}
-              />
+                aria-current={index === safePage ? 'page' : undefined}
+                className="group h-11 w-11 flex items-center justify-center rounded-full transition-colors hover:bg-slate-100 dark:hover:bg-slate-900"
+              >
+                <span
+                  className={`rounded-full transition-all ${
+                    index === safePage
+                      ? 'h-2.5 w-8 bg-orange-500'
+                      : 'h-2.5 w-2.5 bg-slate-300 dark:bg-slate-700 group-hover:bg-slate-400 dark:group-hover:bg-slate-600'
+                  }`}
+                />
+              </button>
             ))}
           </div>
         ) : null}

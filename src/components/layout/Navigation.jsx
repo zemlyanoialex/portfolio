@@ -60,7 +60,7 @@ export default function Navigation({
             onClick={onToggleDarkMode}
             aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             aria-pressed={darkMode}
-            className="p-2 bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+            className="h-11 w-11 flex items-center justify-center bg-slate-100 dark:bg-slate-800 rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
           >
             {darkMode ? (
               <Sun className="w-4 h-4 text-orange-400" />
