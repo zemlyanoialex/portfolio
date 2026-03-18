@@ -1,9 +1,10 @@
-import { Award, Code, MapPin, Server, Star, Users, Zap } from 'lucide-react';
+import { Award, Code, Languages, MapPin, Server, Star, Users, Zap } from 'lucide-react';
 import { STATS } from '../../data/portfolioData';
 
 const ICONS = {
   Award,
   Code,
+  Languages,
   MapPin,
   Server,
   Star,
@@ -91,13 +92,14 @@ export default function StatsSection({ stats, experience, projects }) {
     }
     return stat;
   });
+  const largeGridClass = statsItems.length > 4 ? 'lg:grid-cols-5' : 'lg:grid-cols-4';
 
   return (
     <section
       id="stats"
       className="py-12 px-6 border-y border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950/50"
     >
-      <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className={`max-w-7xl mx-auto grid grid-cols-2 ${largeGridClass} gap-8`}>
         {statsItems.map((stat) => {
           const Icon = ICONS[stat.icon] || Code;
           return (

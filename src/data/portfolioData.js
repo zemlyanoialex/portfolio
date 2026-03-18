@@ -31,6 +31,7 @@ export const STATS = [
   { icon: "Zap", label: "Projects Completed", value: "40+" },
   { icon: "Code", label: "Core Stack", value: "Node/React" },
   { icon: "MapPin", label: "Location", value: "Ukraine, Kyiv" },
+  { icon: "Languages", label: "Familiar Language", value: "English (B2)" },
   { icon: "Award", label: "Years Exp", value: "6+" },
 ];
 
